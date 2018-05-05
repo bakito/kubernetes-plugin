@@ -231,7 +231,11 @@ public class PodTemplateBuilder {
             pod.getSpec().getContainers().add(jnlp);
         }
         if (StringUtils.isBlank(jnlp.getImage())) {
-            jnlp.setImage(DEFAULT_JNLP_IMAGE);
+            if (slave != null && StringUtils.isNotBlank(slave.getKubernetesCloud().getDefaultsJnlpImage())) {
+                jnlp.setImage(slave.getKubernetesCloud().getDefaultsJnlpImage());
+            } else {
+                jnlp.setImage(DEFAULT_JNLP_IMAGE);
+            }
         }
         Map<String, EnvVar> envVars = defaultEnvVars(slave,
                 jnlp.getWorkingDir() != null ? jnlp.getWorkingDir() : ContainerTemplate.DEFAULT_WORKING_DIR,

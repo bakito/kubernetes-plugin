@@ -86,6 +86,7 @@ public class KubernetesCloud extends Cloud {
     private static final int DEFAULT_RETENTION_TIMEOUT_MINUTES = 5;
 
     private String defaultsProviderTemplate;
+    private String defaultsJnlpImage;
 
     @Nonnull
     private List<PodTemplate> templates = new ArrayList<>();
@@ -126,6 +127,7 @@ public class KubernetesCloud extends Cloud {
     public KubernetesCloud(@NonNull String name, @NonNull KubernetesCloud source) {
         super(name);
         this.defaultsProviderTemplate = source.defaultsProviderTemplate;
+        this.defaultsJnlpImage = source.defaultsJnlpImage;
         this.templates.addAll(source.templates);
         this.serverUrl = source.serverUrl;
         this.skipTlsVerify = source.skipTlsVerify;
@@ -172,6 +174,15 @@ public class KubernetesCloud extends Cloud {
     @DataBoundSetter
     public void setDefaultsProviderTemplate(String defaultsProviderTemplate) {
         this.defaultsProviderTemplate = defaultsProviderTemplate;
+    }
+
+    public String getDefaultsJnlpImage() {
+        return defaultsJnlpImage;
+    }
+
+    @DataBoundSetter
+    public void setDefaultsJnlpImage(String defaultsJnlpImage) {
+        this.defaultsJnlpImage = defaultsJnlpImage;
     }
 
     @Nonnull
